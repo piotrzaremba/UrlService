@@ -33,24 +33,12 @@ namespace TinyUrlService.API
 
             // Required for sessions.
             services.AddDistributedMemoryCache();
-            /*
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(builder =>
-                {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyMethod()
-                           .AllowAnyHeader();
-                });
-            });
-            */
-
             services.AddCors(options =>
             {
                 options.AddPolicy("ReactPolicy",
                       builder =>
                       {
-                          builder.WithOrigins("http://localhost:3000") // Replace with your React application's URL
+                          builder.WithOrigins("http://localhost:3000")
                                  .AllowAnyHeader()
                                  .AllowAnyMethod();
                       });
@@ -68,6 +56,7 @@ namespace TinyUrlService.API
 
 
             services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); });
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddSingleton<IUrlService, UrlService>();
@@ -76,7 +65,6 @@ namespace TinyUrlService.API
             services.AddScoped<IValidator<DeleteShortUrlCommand>, DeleteShortUrlValidator>();
             services.AddScoped<IValidator<GetLongUrlQuery>, GetLongUrlValidator>();
             services.AddScoped<IValidator<GetStatisticsQuery>, GetStatisticsValidator>();
-
 
             services.AddScoped(typeof(IRequestHandler<CreateShortUrlCommand, string>), typeof(CreateShortUrlHandler));
             services.AddScoped(typeof(IRequestHandler<DeleteShortUrlCommand, bool>), typeof(DeleteShortUrlHandler));
@@ -89,6 +77,13 @@ namespace TinyUrlService.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "TinyURL API V1");
+                    c.RoutePrefix = string.Empty;
+                });
             }
             else
             {
@@ -100,13 +95,6 @@ namespace TinyUrlService.API
             app.UseCors("ReactPolicy");
 
             app.UseSession();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TinyURL API V1");
-                c.RoutePrefix = string.Empty;
-            });
 
             app.UseEndpoints(endpoints =>
             {

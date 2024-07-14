@@ -30,10 +30,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDFCBED9-CC2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{870296D9-4BAD-4809-8A46-DA33976C381C}"
 	ProjectSection(SolutionItems) = preProject
-		tinyurl-ui\src\services\UrlShortener.js = tinyurl-ui\src\services\UrlShortener.js
 		tinyurl-ui\src\services\UrlService.js = tinyurl-ui\src\services\UrlService.js
-		tinyurl-ui\src\services\Statistics.js = tinyurl-ui\src\services\Statistics.js
-		tinyurl-ui\src\services\DeleteShortUrlButton.js = tinyurl-ui\src\services\DeleteShortUrlButton.js
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyUrlService.Tests", "TinyUrlService.Tests\TinyUrlService.Tests.csproj", "{292E1DBC-E6CE-4574-9264-F14D1DC68246}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{3AA20A0D-3427-4758-9A8A-9E0EB1E8628A}"
+	ProjectSection(SolutionItems) = preProject
+		tinyurl-ui\src\components\UrlShortener.js = tinyurl-ui\src\components\UrlShortener.js
+		tinyurl-ui\src\components\Statistics.js = tinyurl-ui\src\components\Statistics.js
+		tinyurl-ui\src\components\DeleteShortUrlButton.js = tinyurl-ui\src\components\DeleteShortUrlButton.js
 	EndProjectSection
 EndProject
 Global
@@ -54,6 +60,10 @@ Global
 		{0D4E61AF-FC4C-4338-8C2C-43C0A7C357E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D4E61AF-FC4C-4338-8C2C-43C0A7C357E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D4E61AF-FC4C-4338-8C2C-43C0A7C357E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{292E1DBC-E6CE-4574-9264-F14D1DC68246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{292E1DBC-E6CE-4574-9264-F14D1DC68246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{292E1DBC-E6CE-4574-9264-F14D1DC68246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{292E1DBC-E6CE-4574-9264-F14D1DC68246}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +74,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EDFCBED9-CC24-4421-AFDC-11457744AC25} = {8E568F0E-4DFD-40D6-9DF5-401539280658}
 		{870296D9-4BAD-4809-8A46-DA33976C381C} = {EDFCBED9-CC24-4421-AFDC-11457744AC25}
+		{3AA20A0D-3427-4758-9A8A-9E0EB1E8628A} = {EDFCBED9-CC24-4421-AFDC-11457744AC25}
 	EndGlobalSection
 EndGlobal

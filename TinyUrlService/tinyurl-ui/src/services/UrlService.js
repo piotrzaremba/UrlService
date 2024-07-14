@@ -1,33 +1,25 @@
 ﻿const API_URL = 'http://localhost:5237/api/url';
 
 export async function createShortUrl(longUrl, customShortUrl = null) {
-    const response = await fetch(`${API_URL}/create`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ longUrl, shortUrl: customShortUrl }),
-    });
-    return response.text();
-}
+    try {
+        const response = await fetch(`${API_URL}/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ longUrl, shortUrl: customShortUrl }),
+        });
 
-export async function getStatistics() {
-    const response = await fetch(`${API_URL}/stats`);
-    return response.json();
-}
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Error creating short URL:', errorText);
+            throw new Error('Failed to create short URL'); 
+        }
 
-export async function deleteShortUrl(shortUrl) {
-    const response = await fetch(`${API_URL}/${shortUrl}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (response.ok) {
-        return true;
-    } else {
-        throw new Error(`Failed to delete short URL: ${shortUrl}`);
+        return await response.text();
+    } catch (error) {
+        console.error('Error creating short URL:', error);
+        throw new Error('Failed to create short URL'); 
     }
 }
 
@@ -46,4 +38,24 @@ export async function getLongUrl(shortUrl) {
         return longUrl; 
     }
     throw new Error('Failed to fetch long URL');
+}
+
+export async function deleteShortUrl(shortUrl) {
+    const response = await fetch(`${API_URL}/${shortUrl}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (response.ok) {
+        return true;
+    } else {
+        throw new Error(`Failed to delete short URL: ${shortUrl}`);
+    }
+}
+
+export async function getStatistics() {
+    const response = await fetch(`${API_URL}/stats`);
+    return response.json();
 }
